@@ -2,8 +2,11 @@
 FROM eclipse-temurin:21-jdk as build
 WORKDIR /app
 COPY . .
-RUN chmod +x ./gradlew
+ENV DOCKER=true
 RUN ./gradlew build --no-daemon
+RUN chmod +x ./gradlew
+
+
 
 # ---- Package Stage ----
 FROM eclipse-temurin:21-jre
