@@ -7,10 +7,13 @@ plugins {
 group = 'com.example.studytrack'
 version = '0.0.1-SNAPSHOT'
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(24)
-	}
+// Only specify toolchain if not running in Docker
+if (!System.getenv().containsKey("DOCKER")) {
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
 }
 
 configurations {
