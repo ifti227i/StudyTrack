@@ -1,12 +1,15 @@
 # ---- Build Stage ----
 FROM eclipse-temurin:21-jdk as build
 WORKDIR /app
+
+# Copy only gradlew and make it executable first
+COPY gradlew .
+RUN chmod +x gradlew
+
+# Now copy the rest of the files
 COPY . .
-ENV DOCKER=true
+
 RUN ./gradlew build --no-daemon
-RUN chmod +x ./gradlew
-
-
 
 # ---- Package Stage ----
 FROM eclipse-temurin:21-jre
